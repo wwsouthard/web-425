@@ -1,7 +1,18 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { MenuComponent } from './menu/menu.component';
+import { OrderComponent } from './order/order.component';
+import { DailySpecialsComponent } from './daily-specials/daily-specials.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { SigninComponent } from './signin/signin.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'menu', component: MenuComponent },
+  { path: 'order', component: OrderComponent },
+  { path: 'daily-specials', component: DailySpecialsComponent },
+  { path: 'feedback', component: FeedbackComponent },
+  { path: 'signin', component: SigninComponent },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
