@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterLink, RouterOutlet],
   template: `
     <div class="app-shell">
       <header class="site-header">
-        <a class="brand" href="#">RPG Character Builder</a>
+        <a class="brand" routerLink="/">RPG Character Builder</a>
         <nav class="site-nav" aria-label="Main">
-          <a href="#">Home</a>
-          <a href="#">Characters</a>
-          <a href="#">Campaigns</a>
-          <a href="#">Lore</a>
-          <a href="#">Account</a>
+          <a routerLink="/">Home</a>
+          <a routerLink="/players">Players</a>
+          <a routerLink="/signin">Sign in</a>
+          <a routerLink="/create-character">Create character</a>
+          <a routerLink="/create-guild">Create guild</a>
+          <a routerLink="/character-faction">Character faction</a>
         </nav>
       </header>
 
@@ -24,11 +25,12 @@ import { RouterOutlet } from '@angular/router';
 
       <footer class="site-footer">
         <nav class="footer-nav" aria-label="Footer">
-          <a href="#">Home</a>
-          <a href="#">Characters</a>
-          <a href="#">Campaigns</a>
-          <a href="#">Lore</a>
-          <a href="#">Account</a>
+          <a routerLink="/">Home</a>
+          <a routerLink="/players">Players</a>
+          <a routerLink="/signin">Sign in</a>
+          <a routerLink="/create-character">Create character</a>
+          <a routerLink="/create-guild">Create guild</a>
+          <a routerLink="/character-faction">Character faction</a>
         </nav>
         <p class="footer-tagline">Forge legends. Track sheets. Tell better stories.</p>
       </footer>
