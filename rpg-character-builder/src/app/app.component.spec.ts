@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { provideRouter, RouterLink } from '@angular/router';
+
 import { AppComponent } from './app.component';
+import { routes } from './app.routes';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter([])]
+      providers: [provideRouter(routes)],
     }).compileComponents();
   });
 
@@ -27,5 +30,16 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.brand')?.textContent).toContain('RPG Character Builder');
+  });
+
+  it('should have correct route for PlayersComponent', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const playersAnchor = fixture.debugElement
+      .queryAll(By.directive(RouterLink))
+      .map((de) => de.nativeElement as HTMLAnchorElement)
+      .find((a) => a.textContent?.trim() === 'Players');
+    expect(playersAnchor).withContext("Player's link should exist in the menu").toBeTruthy();
+    expect(playersAnchor?.getAttribute('href')).toBe('/players');
   });
 });
