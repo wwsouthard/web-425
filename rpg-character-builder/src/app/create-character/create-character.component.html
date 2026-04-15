@@ -1,0 +1,83 @@
+<section class="create-page">
+  <header class="page-header">
+    <p class="eyebrow">Hands-on workshop</p>
+    <h1 class="page-title">Create a character</h1>
+    <p class="page-lead">
+      Roll up a quick concept with a name, identity, and class—then see them join your roster below.
+    </p>
+    <p class="cross-nav">
+      <a routerLink="/players" class="text-link">View the player roster</a>
+      <span aria-hidden="true"> · </span>
+      <a routerLink="/home" class="text-link">Back to home</a>
+    </p>
+  </header>
+
+  <div class="layout">
+    <form class="character-form" (ngSubmit)="onSubmit()" #characterForm="ngForm" novalidate>
+      <h2 class="section-heading">New hero</h2>
+
+      <label class="field">
+        <span class="label">Name</span>
+        <input
+          type="text"
+          name="name"
+          class="control"
+          [(ngModel)]="model.name"
+          placeholder="e.g. Mira Ashveil"
+          autocomplete="off"
+        />
+      </label>
+
+      <label class="field">
+        <span class="label">Gender</span>
+        <select name="gender" class="control" [(ngModel)]="model.gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span class="label">Class</span>
+        <select name="class" class="control" [(ngModel)]="model.class">
+          <option value="Warrior">Warrior</option>
+          <option value="Mage">Mage</option>
+          <option value="Rogue">Rogue</option>
+        </select>
+      </label>
+
+      <button type="submit" class="submit-btn">Create character</button>
+    </form>
+
+    <section class="roster-panel" aria-labelledby="created-heading">
+      <h2 id="created-heading" class="section-heading">Your created characters</h2>
+
+      @if (characters.length === 0) {
+        <p class="empty-hint">No characters yet—submit the form to add your first entry.</p>
+      } @else {
+        <div class="table-wrap">
+          <table class="character-table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Class</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of characters; track c.id) {
+                <tr>
+                  <td>{{ c.id }}</td>
+                  <td>{{ c.name }}</td>
+                  <td>{{ c.gender }}</td>
+                  <td>{{ c.class }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+  </div>
+</section>

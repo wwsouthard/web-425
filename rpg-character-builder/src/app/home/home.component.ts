@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   template: `
     <article class="home">
       <section class="hero">
@@ -14,7 +15,7 @@ import { Component } from '@angular/core';
             RPG Character Builder helps you shape heroes and antiheroes with clarity, color, and just enough crunch to satisfy
             rules enthusiasts—without burying the heart of your story.
           </p>
-          <a class="cta" href="#">Start a character sheet</a>
+          <a class="cta" routerLink="/create-character">Start a character sheet</a>
         </div>
         <figure class="hero-figure">
           <img

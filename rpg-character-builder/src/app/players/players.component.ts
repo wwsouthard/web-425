@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 type Gender = 'Male' | 'Female' | 'Other';
 type CharacterClass = 'Warrior' | 'Mage' | 'Rogue';
@@ -15,11 +16,14 @@ export interface Character {
 @Component({
   selector: 'app-players',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   template: `
     <section class="players-page">
       <h1 class="page-title">Player roster</h1>
       <p class="page-lead">Ten pre-made heroes—name, path, faction, and a story hook.</p>
+      <p class="cross-nav">
+        <a routerLink="/create-character" class="text-link">Create a new character</a>
+      </p>
 
       <div class="character-grid" role="list">
         @for (c of characters; track c.name) {
@@ -64,10 +68,27 @@ export interface Character {
     }
 
     .page-lead {
-      margin: 0 0 1.75rem;
+      margin: 0 0 0.75rem;
       color: #a898c4;
       font-size: 0.95rem;
       max-width: 42rem;
+    }
+
+    .cross-nav {
+      margin: 0 0 1.75rem;
+      font-size: 0.9rem;
+    }
+
+    .text-link {
+      color: #c4a8f0;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(196, 168, 240, 0.35);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .text-link:hover {
+      color: #fff;
+      border-bottom-color: rgba(255, 255, 255, 0.45);
     }
 
     .character-grid {
