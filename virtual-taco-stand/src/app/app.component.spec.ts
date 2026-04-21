@@ -4,6 +4,8 @@ import { ActivatedRoute, Routes, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuComponent } from './menu/menu.component';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from './auth.service';
 
 describe('AppComponent (Standalone)', () => {
   beforeEach(async () => {
@@ -16,12 +18,20 @@ describe('AppComponent (Standalone)', () => {
       queryParams: of({}),
     };
     const routes: Routes = [{ path: 'menu', component: MenuComponent }];
+    const cookieServiceSpy = jasmine.createSpyObj<CookieService>('CookieService', ['get']);
+    const authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['getAuthState', 'signout']);
+    authServiceSpy.getAuthState.and.returnValue(of(false));
+
     await TestBed.configureTestingModule({
       imports: [
         AppComponent,
         RouterTestingModule.withRoutes(routes),
       ],
-      providers: [{ provide: ActivatedRoute, useValue: activatedRouteStub }],
+      providers: [
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
+        { provide: CookieService, useValue: cookieServiceSpy },
+        { provide: AuthService, useValue: authServiceSpy },
+      ],
     }).compileComponents();
   });
 
