@@ -1,15 +1,33 @@
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, RouterLink } from '@angular/router';
+import { of } from 'rxjs';
 
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
+import { AuthService } from './auth.service';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideRouter(routes)],
+      providers: [
+        provideRouter(routes),
+        {
+          provide: AuthService,
+          useValue: {
+            getAuthState: () => of(false),
+            signout: (): void => {}
+          }
+        },
+        {
+          provide: CookieService,
+          useValue: {
+            get: (): string => ''
+          }
+        }
+      ]
     }).compileComponents();
   });
 

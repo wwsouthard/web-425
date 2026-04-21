@@ -1,0 +1,99 @@
+.signin-form-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.signin-form {
+  flex: 1;
+  width: 100%;
+  padding: 1.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(192, 168, 255, 0.2);
+  background: rgba(12, 10, 24, 0.75);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.signin-form h1 {
+  margin: 0 0 1rem;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #f0e8ff;
+  letter-spacing: 0.04em;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+legend {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: #a898c4;
+  margin-bottom: 1rem;
+}
+
+label,
+input {
+  display: block;
+  margin-bottom: 5px;
+}
+
+label {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: #c4b8dc;
+}
+
+input,
+input[type='submit'] {
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+input[type='email'],
+input[type='password'] {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(140, 100, 220, 0.35);
+  background: rgba(8, 6, 18, 0.9);
+  color: #e8e4f0;
+}
+
+input[type='email']:focus,
+input[type='password']:focus {
+  outline: none;
+  border-color: rgba(168, 130, 255, 0.55);
+  box-shadow: 0 0 0 2px rgba(140, 100, 220, 0.25);
+}
+
+input[type='submit'] {
+  margin-top: 12px;
+  float: right;
+  cursor: pointer;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #6b4eb8 0%, #4a3278 100%);
+  color: #fff;
+  padding: 0.55rem 1.25rem;
+}
+
+input[type='submit']:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.error {
+  display: block;
+  color: #ff8a8a;
+  padding: 5px 0;
+  font-size: 0.8rem;
+}

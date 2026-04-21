@@ -1,17 +1,30 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
+import { AuthService } from './auth.service';
 import { MenuComponent } from './menu/menu.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, MenuComponent],
+  imports: [CommonModule, RouterLink, RouterOutlet, MenuComponent],
   template: `
     <div class="app-shell">
       <header class="site-header">
         <a class="brand" routerLink="/">RPG Character Builder</a>
-        <app-menu />
+        <div class="header-actions">
+          <app-menu />
+          <div class="auth-toolbar">
+            @if (isAuthenticated && email) {
+              <span class="welcome">Welcome {{ email }}</span>
+              <button type="button" class="btn-signout" (click)="signout()">Sign out</button>
+            } @else {
+              <a routerLink="/signin" class="btn-signin">Sign In</a>
+            }
+          </div>
+        </div>
       </header>
 
       <main class="site-main">
@@ -71,6 +84,61 @@ import { MenuComponent } from './menu/menu.component';
       color: #fff;
     }
 
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem 1.5rem;
+    }
+
+    .auth-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem 0.85rem;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.88rem;
+    }
+
+    .welcome {
+      color: #c4b8dc;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .btn-signin {
+      display: inline-block;
+      padding: 0.4rem 0.95rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #6b4eb8 0%, #4a3278 100%);
+      border: 1px solid rgba(192, 168, 255, 0.35);
+    }
+
+    .btn-signin:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-signout {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 138, 138, 0.45);
+      background: transparent;
+      color: #ffb4b4;
+    }
+
+    .btn-signout:hover {
+      background: rgba(255, 100, 100, 0.12);
+    }
+
     .site-main {
       flex: 1;
       width: 100%;
@@ -116,6 +184,29 @@ import { MenuComponent } from './menu/menu.component';
     }
   `
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'rpg-character-builder';
+
+  isAuthenticated = false;
+  email: string | null = null;
+
+  constructor(
+    private authService: AuthService,
+    private cookieService: CookieService
+  ) {}
+
+  ngOnInit(): void {
+    this.authService.getAuthState().subscribe((isAuth) => {
+      this.isAuthenticated = isAuth;
+      if (isAuth) {
+        this.email = this.cookieService.get('session_user');
+      } else {
+        this.email = null;
+      }
+    });
+  }
+
+  signout(): void {
+    this.authService.signout();
+  }
 }
