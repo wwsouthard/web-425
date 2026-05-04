@@ -1,0 +1,138 @@
+<section class="create-page">
+  <header class="page-header">
+    <p class="eyebrow">Hands-on workshop</p>
+    <h1 class="page-title">Create a guild</h1>
+    <p class="page-lead">
+      Register your party’s banner, purpose, and how you want updates—then review every guild you have founded below.
+    </p>
+    <p class="cross-nav">
+      <a routerLink="/" class="text-link">Home</a>
+      <span aria-hidden="true"> · </span>
+      <a routerLink="/players" class="text-link">Players</a>
+      <span aria-hidden="true"> · </span>
+      <a routerLink="/create-character" class="text-link">Create character</a>
+    </p>
+  </header>
+
+  <div class="layout">
+    <form class="guild-form" [formGroup]="guildForm" (ngSubmit)="onSubmit()" novalidate>
+      <h2 class="section-heading">New guild</h2>
+
+      <label class="field">
+        <span class="label">Guild name</span>
+        <input
+          type="text"
+          formControlName="guildName"
+          class="control"
+          [class.control-invalid]="guildForm.get('guildName')?.invalid && guildForm.get('guildName')?.touched"
+          placeholder="e.g. Ember Vanguard"
+          autocomplete="organization"
+        />
+        @if (guildForm.get('guildName')?.invalid && guildForm.get('guildName')?.touched) {
+          <span class="field-error">Guild name is required.</span>
+        }
+      </label>
+
+      <label class="field">
+        <span class="label">Description</span>
+        <textarea
+          formControlName="description"
+          class="control control-textarea"
+          rows="4"
+          [class.control-invalid]="guildForm.get('description')?.invalid && guildForm.get('description')?.touched"
+          placeholder="What binds your members together?"
+        ></textarea>
+        @if (guildForm.get('description')?.invalid && guildForm.get('description')?.touched) {
+          <span class="field-error">Description is required.</span>
+        }
+      </label>
+
+      <label class="field">
+        <span class="label">Type</span>
+        <select
+          formControlName="type"
+          class="control"
+          [class.control-invalid]="guildForm.get('type')?.invalid && guildForm.get('type')?.touched"
+        >
+          <option value="" disabled>Select guild type</option>
+          <option value="Competitive">Competitive</option>
+          <option value="Casual">Casual</option>
+          <option value="Social">Social</option>
+          <option value="Educational">Educational</option>
+        </select>
+        @if (guildForm.get('type')?.invalid && guildForm.get('type')?.touched) {
+          <span class="field-error">Guild type is required.</span>
+        }
+      </label>
+
+      <label class="field field-checkbox">
+        <input type="checkbox" formControlName="acceptTerms" class="checkbox" />
+        <span class="checkbox-label">I accept the guild charter and community guidelines.</span>
+      </label>
+      @if (guildForm.get('acceptTerms')?.invalid && guildForm.get('acceptTerms')?.touched) {
+        <span class="field-error field-error-block">You must accept the terms to register.</span>
+      }
+
+      <fieldset class="field field-radio-set">
+        <legend class="label">Notification preference</legend>
+        <div class="radio-row">
+          <label class="radio-option">
+            <input type="radio" formControlName="notificationPreference" value="Email" />
+            <span>Email</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" formControlName="notificationPreference" value="SMS" />
+            <span>SMS</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" formControlName="notificationPreference" value="In-App" />
+            <span>In-App</span>
+          </label>
+        </div>
+        @if (
+          guildForm.get('notificationPreference')?.invalid &&
+          guildForm.get('notificationPreference')?.touched
+        ) {
+          <span class="field-error">Choose how we should notify you.</span>
+        }
+      </fieldset>
+
+      <button type="submit" class="submit-btn" [disabled]="guildForm.invalid">Create guild</button>
+    </form>
+
+    <section class="roster-panel" aria-labelledby="guilds-heading">
+      <h2 id="guilds-heading" class="section-heading">Your guilds</h2>
+
+      @if (guilds.length === 0) {
+        <p class="empty-hint">No guilds yet—complete the form above to list your first banner.</p>
+      } @else {
+        <div class="table-wrap">
+          <table class="guild-table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Type</th>
+                <th scope="col">Terms</th>
+                <th scope="col">Notifications</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (g of guilds; track g.id) {
+                <tr>
+                  <td>{{ g.id }}</td>
+                  <td>{{ g.guildName }}</td>
+                  <td>{{ g.description }}</td>
+                  <td>{{ g.type }}</td>
+                  <td>{{ g.acceptTerms ? 'Accepted' : '—' }}</td>
+                  <td>{{ g.notificationPreference }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+  </div>
+</section>
