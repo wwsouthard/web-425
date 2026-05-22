@@ -1,0 +1,5 @@
+[1A[2KFirefox 142.0 (Linux x86_64): Executed 33 of 33 SUCCESS (0 secs / 0.847 secs)
+[1A[2KFirefox 142.0 (Linux x86_64): Executed 33 of 33 SUCCESS (0.969 secs / 0.847 secs)
+TOTAL: 33 SUCCESS
+✔ Browser application bundle generation complete.
+✔ Browser application bundle generation complete.

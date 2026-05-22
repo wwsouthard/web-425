@@ -74,4 +74,17 @@ describe('OrderComponent', () => {
     expect(component.noOnions).toBe(false);
     expect(component.noCilantro).toBe(false);
   });
+
+  it('should remove a taco from the order by index', () => {
+    component.addToOrder();
+    component.selectedTacoId = 2;
+    component.addToOrder();
+
+    expect(component.order.tacos.length).toBe(2);
+
+    component.removeTacoFromOrder(0);
+
+    expect(component.order.tacos.length).toBe(1);
+    expect(component.order.tacos[0].id).toBe(2);
+  });
 });
