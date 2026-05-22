@@ -56,7 +56,7 @@ import { OrderSummaryComponent } from "../order-summary/order-summary.component"
       </form>
 
       <div class="order-summary">
-        <app-order-summary [order]="order"></app-order-summary>
+        <app-order-summary [order]="order" (removeTaco)="removeTacoFromOrder($event)"></app-order-summary>
       </div>
     </div>
   `,
@@ -184,6 +184,11 @@ export class OrderComponent {
     } else {
       console.error('Taco not found in the list of available tacos.', this.selectedTacoId)
     }
+  }
+
+  removeTacoFromOrder(index: number): void {
+    this.order.tacos.splice(index, 1);
+    this.orderUpdated.emit(this.order);
   }
 
   resetForm () {
